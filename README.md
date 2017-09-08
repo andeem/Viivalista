@@ -5,4 +5,4 @@ Aiheena on päivttäisten työpistekohtaisten työvuorojen suunnitteluun tarkoit
 
 https://viivalista.herokuapp.com/
 
-Dokumentaatio [/doc/Dokumentaatio.pdf]
+Dokumentaatio (/doc/Dokumentaatio.pdf)
