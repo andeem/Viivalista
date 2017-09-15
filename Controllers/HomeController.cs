@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Text;
 using Npgsql;
+using Viivalista.lib;
 
 namespace Viivalista.Controllers
 {
@@ -14,20 +15,13 @@ namespace Viivalista.Controllers
         public IActionResult Index()
         {
 
-            Uri url;
-            bool isUrl = Uri.TryCreate(Environment.GetEnvironmentVariable("DATABASE_URL"), UriKind.Absolute, out url);
-            if (isUrl)
+            NpgsqlConnection conn = Database.connection();
+            conn.Open();
+            if (conn.State == System.Data.ConnectionState.Open)
             {
-                var connectionUrl = $"host={url.Host};username={url.UserInfo.Split(':')[0]};password={url.UserInfo.Split(':')[1]};database={url.LocalPath.Substring(1)};pooling=true;";
-                using (var conn = new NpgsqlConnection(connectionUrl))
-                {
-                    conn.Open();
-                    if (conn.State is System.Data.ConnectionState.Open)
-                    {
-                        ViewData["Message"] = "Toimii";
-                    }
-                }
+                ViewData["Message"] = "Tietokantayhteys toimii";
             }
+            conn.Close();
             return View();
         }
 
@@ -76,9 +70,8 @@ namespace Viivalista.Controllers
 
             return View();
         }
-        public IActionResult Login()
+        public IActionResult Kirjautuminen()
         {
-
             return View();
         }
 
