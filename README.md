@@ -6,3 +6,17 @@ Aiheena on päivttäisten työpistekohtaisten työvuorojen suunnitteluun tarkoit
 https://viivalista.herokuapp.com/
 
 [Dokumentaatio](/doc/Dokumentaatio.pdf)
+
+
+Viikolla 2 lisätyt näkymät:
+https://viivalista.herokuapp.com/
+https://viivalista.herokuapp.com/Home/Paivalista
+https://viivalista.herokuapp.com/Tyontekijat
+https://viivalista.herokuapp.com/Home/Tyopisteet
+https://viivalista.herokuapp.com/Home/OmaSivu
+https://viivalista.herokuapp.com/Home/Kirjautuminen
+https://viivalista.herokuapp.com/Tyontekijat/Tyontekija
+https://viivalista.herokuapp.com/Tyontekijat/MuokkaaTyontekija
+https://viivalista.herokuapp.com/Home/Tyopiste
+https://viivalista.herokuapp.com/Home/MuokkaaHuomio
+https://viivalista.herokuapp.com/Home/huomio
