@@ -11,8 +11,10 @@ namespace Viivalista.Controllers
     public class Tyontekijat : Controller
     {
         // GET: /<controller>/
-        public IActionResult Lista()
+        public IActionResult Lista(int id)
         {
+            if (!(id == 0)) { return View("Tyontekija"); }
+
             return View();
         }
         public IActionResult Tyontekija()
