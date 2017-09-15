@@ -31,19 +31,57 @@ namespace Viivalista.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Tyontekijat()
         {
-            ViewData["Message"] = "Your application description page.";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult OmaSivu()
         {
-            ViewData["Message"] = "Your contact page.";
 
             return View();
         }
+
+        public IActionResult Paivalista()
+        {
+
+            return View();
+        }
+
+        public IActionResult MuokkaatyonTekija()
+        {
+
+            return View();
+        }
+        public IActionResult MuokkaaHuomio()
+        {
+
+            return View();
+        }
+
+        public IActionResult Tyopisteet()
+        {
+
+            return View();
+        }
+
+        public IActionResult Tyopiste()
+        {
+
+            return View();
+        }
+        public IActionResult Huomio()
+        {
+
+            return View();
+        }
+        public IActionResult Login()
+        {
+
+            return View();
+        }
+
 
         public IActionResult Error()
         {
