@@ -36,6 +36,34 @@ namespace Viivalista.Controllers
 
             return View();
         }
+        public IActionResult MuokkaaHuomio()
+        {
+
+            return View();
+        }
+
+        public IActionResult Tyopisteet()
+        {
+
+            return View();
+        }
+
+        public IActionResult Tyopiste()
+        {
+
+            return View();
+        }
+        public IActionResult Huomio()
+        {
+
+            return View();
+        }
+        public IActionResult Login()
+        {
+
+            return View();
+        }
+
 
         public IActionResult Error()
         {
