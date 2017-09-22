@@ -14,7 +14,11 @@ namespace Viivalista.Models
         public String tyontekijaryhma { get; set; }
 
 
-        public Tyontekija() { }
+        public Tyontekija(String nimi, String tryhma)
+        {
+            this.nimi = nimi;
+            this.tyontekijaryhma = tryhma;
+        }
 
         public Tyontekija(int id, String nimi, String tryhma)
         {
@@ -41,15 +45,15 @@ namespace Viivalista.Models
                 
             }
         }
-        public static List<Tyontekija> all(int id)
+        public static List<Tyontekija> all()
         {
 
             using (var conn = Database.connection())
             {
                 conn.Open();
-                using (var command = new NpgsqlCommand("SELECT * FROM tyontekija WHERE id = @id", conn))
+                using (var command = new NpgsqlCommand("SELECT * FROM tyontekija", conn))
                 {
-                    command.Parameters.AddWithValue("id", id);
+
                     List<Tyontekija> l = new List<Tyontekija>();
 
                     NpgsqlDataReader reader = command.ExecuteReader();
@@ -69,11 +73,10 @@ namespace Viivalista.Models
             using (var conn = Database.connection())
             {
                 conn.Open();
-                using (var command = new NpgsqlCommand("INSERT INTO tyontekija (id, nimi, tyontekijaryhma) VALUES (@id, @nimi, @tyontekijaryhma)", conn))
+                using (var command = new NpgsqlCommand("INSERT INTO tyontekija (nimi, tyontekijaryhma) VALUES (@nimi, @tyontekijaryhma)", conn))
                 {
-                    command.Parameters.AddWithValue("id,", t.id);
-                    command.Parameters.AddWithValue("nimi,", t.nimi);
-                    command.Parameters.AddWithValue("tyontekijaryhma,", t.tyontekijaryhma);
+                    command.Parameters.AddWithValue("nimi", t.nimi);
+                    command.Parameters.AddWithValue("tyontekijaryhma", t.tyontekijaryhma);
 
                     command.ExecuteNonQuery();
                 }

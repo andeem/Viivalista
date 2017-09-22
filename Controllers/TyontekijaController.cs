@@ -11,7 +11,7 @@ namespace Viivalista.Controllers
 {
     public class TyontekijaController : Controller
     {
-        private IList<Tyontekija> tyontekijat;
+        
 
         // GET: /<controller>/
 
@@ -20,31 +20,27 @@ namespace Viivalista.Controllers
         [Route("Tyontekijat")]
         public IActionResult Index()
         {
-            tyontekijat = new List<Tyontekija>();
-            tyontekijat.Add(new Tyontekija(1, "Muumipeikko", "Tuotanto"));
-            tyontekijat.Add(new Tyontekija(2, "Nipsu", "Tuotanto"));
-            tyontekijat.Add(new Tyontekija(3, "Pikku Myy", "Tuotanto"));
-
+            List<Tyontekija> tyontekijat = new List<Tyontekija>();
+            tyontekijat.AddRange(Tyontekija.all());
             ViewData["tyontekijat"] = tyontekijat;
             return View();
         }
 
         [Route("Tyontekijat")]
         [HttpPost]
-        public IActionResult Tallenna(Tyontekija t)
+        public IActionResult Tallenna(String nimi, String tyontekijaryhma)
         {
-
-
-            tyontekijat.Add(t);
-            ViewData["tyontekijat"] = tyontekijat;
+            Tyontekija.save(new Tyontekija(nimi, tyontekijaryhma));
+            ViewData["tyontekijat"] = Tyontekija.all();
             return View("Index");
         }
 
         [Route("Tyontekijat/{id}")]
-        public IActionResult Tyontekija(int id)
+        public IActionResult Nayta(int id)
         {
-            ViewData["tyontekija"] = new Tyontekija(1, "Muumipeikko", "Tuotanto");
-            return View();
+            
+            ViewData["tyontekija"] = Tyontekija.find(id);
+            return View("Tyontekija");
         }
         public IActionResult MuokkaaTyontekija()
         {

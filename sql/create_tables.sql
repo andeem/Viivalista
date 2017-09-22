@@ -1,12 +1,12 @@
 CREATE TABLE Tyontekija (
-	id INTEGER NOT NULL,
+	id SERIAL NOT NULL,
 	Nimi VARCHAR(30),
 	Tyontekijaryhma VARCHAR(30),
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE Tyopiste(
-	id INTEGER NOT NULL,
+	id SERIAL NOT NULL,
 	Nimi VARCHAR(30),
 	PRIMARY KEY (id)
 );
@@ -18,7 +18,7 @@ CREATE TABLE Luvat(
 	FOREIGN KEY (Tyontekija_id) REFERENCES Tyontekija
 );
 CREATE TABLE Huomio(
-	id INTEGER,
+	id SERIAL,
 	Nimi VARCHAR(30),
 	Kuvaus VARCHAR(200),
 	Pvm DATE,
@@ -28,7 +28,7 @@ CREATE TABLE Huomio(
 	FOREIGN KEY (Tyontekija_id) REFERENCES Tyontekija
 );
 CREATE TABLE Vuoro(
-	id INTEGER,
+	id SERIAL,
 	Pvm DATE,
 	Alkuaika TIME,
 	Loppuaika TIME,

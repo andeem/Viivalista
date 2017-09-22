@@ -1,12 +1,11 @@
 ﻿@using Viivalista.Models
 
 @{
-    ViewData["Title"] = "Matti Meikäläinen";
+    var t = ViewData["tyontekija"] as Tyontekija;
+    ViewData["Title"] =t.nimi;
 }
 
-@{
-    var t = ViewData["tyontekija"] as Tyontekija;
-        }
+
 <h1>@t.nimi</h1>
 <h2>@t.tyontekijaryhma</h2>
 <button>Muokkaa</button>

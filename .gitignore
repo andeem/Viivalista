@@ -111,3 +111,5 @@ _ReSharper*/
 
 # TeamCity is a build add-in
 _TeamCity*
+
+deploy.cmd
