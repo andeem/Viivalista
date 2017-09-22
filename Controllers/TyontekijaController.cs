@@ -11,11 +11,16 @@ namespace Viivalista.Controllers
 {
     public class TyontekijaController : Controller
     {
+        private IList<Tyontekija> tyontekijat;
+
         // GET: /<controller>/
+
+
+
         [Route("Tyontekijat")]
         public IActionResult Index()
         {
-            IList<Tyontekija> tyontekijat = new List<Tyontekija>();
+            tyontekijat = new List<Tyontekija>();
             tyontekijat.Add(new Tyontekija(1, "Muumipeikko", "Tuotanto"));
             tyontekijat.Add(new Tyontekija(2, "Nipsu", "Tuotanto"));
             tyontekijat.Add(new Tyontekija(3, "Pikku Myy", "Tuotanto"));
@@ -28,13 +33,9 @@ namespace Viivalista.Controllers
         [HttpPost]
         public IActionResult Tallenna(Tyontekija t)
         {
-            
 
-            IList<Tyontekija> tyontekijat = new List<Tyontekija>();
-            tyontekijat.Add(new Tyontekija(1, "Muumipeikko", "Tuotanto"));
-            tyontekijat.Add(new Tyontekija(2, "Nipsu", "Tuotanto"));
-            tyontekijat.Add(new Tyontekija(3, "Pikku Myy", "Tuotanto"));
 
+            tyontekijat.Add(t);
             ViewData["tyontekijat"] = tyontekijat;
             return View("Index");
         }

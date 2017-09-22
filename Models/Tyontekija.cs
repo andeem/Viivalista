@@ -13,6 +13,9 @@ namespace Viivalista.Models
         public String nimi { get; set; }
         public String tyontekijaryhma { get; set; }
 
+
+        public Tyontekija() { }
+
         public Tyontekija(int id, String nimi, String tryhma)
         {
             this.id = id;
