@@ -15,13 +15,21 @@ namespace Viivalista.Controllers
         public IActionResult Index()
         {
 
-            NpgsqlConnection conn = Database.connection();
-            conn.Open();
-            if (conn.State == System.Data.ConnectionState.Open)
+            try
             {
-                ViewData["Message"] = "Tietokantayhteys toimii";
+                NpgsqlConnection conn = Database.connection();
+                conn.Open();
+
+                if (conn.State == System.Data.ConnectionState.Open)
+                {
+                    ViewData["Message"] = "Tietokantayhteys toimii";
+                }
+                conn.Close();
             }
-            conn.Close();
+            catch
+            {
+
+            }
             return View();
         }
 
