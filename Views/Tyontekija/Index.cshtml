@@ -1,0 +1,24 @@
+﻿@using Viivalista.Models;
+
+@{
+    
+    ViewData["Title"] = "Työntekijät";
+
+}
+<h2>@ViewData["Title"]</h2>
+<a href="#" class="btn btn-default">Lisää työntekijä</a>
+<br />
+<table style="width:100%">
+    <tr>
+        <th>Nimi</th>
+        <th>Ryhmä</th>
+    </tr>
+    @foreach(var t in ViewData["tyontekijat"] as IList<Tyontekija>)
+    {
+        <tr>
+            <td>@t.nimi</td>
+            <td>@t.tyontekijaryhma</td>
+        </tr>
+
+    }
+</table>

@@ -56,8 +56,8 @@ namespace Viivalista
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
-                    name: "Tyontekijat",
-                    template: "{controller=Tyontekijat}/{action=Lista}/{id?}");
+                    name: "Tyontekija",
+                    template: "{controller=Tyontekija}/{action=index}/{id?}");
             });
         }
     }
