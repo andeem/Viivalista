@@ -11,7 +11,7 @@ namespace Viivalista.Controllers
 {
     public class TyontekijaController : Controller
     {
-        
+
 
         // GET: /<controller>/
 
@@ -30,7 +30,7 @@ namespace Viivalista.Controllers
         [HttpPost]
         public IActionResult Tallenna(String nimi, String tyontekijaryhma)
         {
-            Tyontekija.save(new Tyontekija(nimi, tyontekijaryhma));
+            new Tyontekija(nimi, tyontekijaryhma).save();
             ViewData["tyontekijat"] = Tyontekija.all();
             return View("Index");
         }
@@ -38,14 +38,45 @@ namespace Viivalista.Controllers
         [Route("Tyontekijat/{id}")]
         public IActionResult Nayta(int id)
         {
-            
+
             ViewData["tyontekija"] = Tyontekija.find(id);
             return View("Tyontekija");
         }
-        public IActionResult MuokkaaTyontekija()
-        {
 
+        public IActionResult Lisaa()
+        {
             return View();
         }
+
+        [Route("Tyontekijat/Muokkaa/{id}")]
+        public IActionResult Muokkaa(int id)
+        {
+            Tyontekija t = Tyontekija.find(id);
+            ViewData["tyontekija"] = t;
+            ViewData["title"] = t.nimi;
+            return View();
+        }
+
+        [Route("Tyontekijat/{id}")]
+        [HttpPost]
+        public IActionResult Tallenna(int id, String nimi, String tyontekijaryhma)
+        {
+            Tyontekija t = Tyontekija.find(id);
+            t.nimi = nimi;
+            t.tyontekijaryhma = tyontekijaryhma;
+            t.update();
+            ViewData["tyontekija"] = t;
+            ViewData["title"] = t.nimi;
+            return View("Tyontekija");
+        }
+
+        
+        public IActionResult Poista(int id)
+        {
+            Tyontekija.find(id).delete();
+            ViewData["tyontekijat"] = Tyontekija.all();
+            return RedirectToAction("Index");
+        }
+
     }
 }

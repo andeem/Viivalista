@@ -1,0 +1,21 @@
+﻿@using Viivalista.Models;
+
+@{
+
+    var t = ViewData["tyontekija"] as Tyontekija;
+}
+
+<h1>@t.nimi</h1>
+<br />
+
+<form action="/Tyontekijat/Muokkaa" method="post">
+    Etunimi:<br />
+    <input type="text" name="nimi" value="@t.nimi" /><br />
+    Ryhmä:<br />
+    <input type="text" name="tyontekijaryhma" value="@t.tyontekijaryhma" /><br />
+    <input type="hidden" name="id" value=@t.id />
+    <input type="checkbox" name="kone 1" value="Kone 1" />Kone 1 <br />
+    <input type="checkbox" name="tarjotin 1" value="Tarjotin 1" />Tarjotin 1<br />
+    <input type="checkbox" name="kuvauslaite" value="Kuvauslaite" />Kuvauslaite<br /><br />
+    <input type="submit" value="Tallenna" />
+</form>
