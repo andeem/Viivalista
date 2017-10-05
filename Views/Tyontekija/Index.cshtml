@@ -1,5 +1,5 @@
 ﻿@using Viivalista.Models;
-
+@model IEnumerable<Tyontekija>
 @{
     
     ViewData["Title"] = "Työntekijät";
@@ -13,7 +13,7 @@
         <th>Nimi</th>
         <th>Ryhmä</th>
     </tr>
-    @foreach(var t in ViewData["tyontekijat"] as IList<Tyontekija>)
+    @foreach(var t in Model)
     {
         <tr>
             <td><a asp-area="" asp-controller="Tyontekija" asp-action="Nayta" asp-route-id=@t.id>@t.nimi</a></td>

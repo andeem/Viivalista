@@ -11,11 +11,11 @@ namespace Viivalista.lib
         public static NpgsqlConnection connection()
         {
             Uri url;
-            bool isUrl = Uri.TryCreate(Environment.GetEnvironmentVariable("DATABASE_URL"), UriKind.Absolute, out url);
+            bool isUrl = Uri.TryCreate("postgres://dbvlfswtnxalod:8fbc4c571a55b673a685c345d3009d88f22180827eac4e7c213b8c015551b4ff@ec2-54-228-235-198.eu-west-1.compute.amazonaws.com:5432/dm51rqc6hcunp", UriKind.Absolute, out url);
             string connectionUrl = null;
             if (isUrl)
             {
-                connectionUrl = $"host={url.Host};username={url.UserInfo.Split(':')[0]};password={url.UserInfo.Split(':')[1]};database={url.LocalPath.Substring(1)};pooling=true;";
+                connectionUrl = $"host={url.Host};username={url.UserInfo.Split(':')[0]};password={url.UserInfo.Split(':')[1]};database={url.LocalPath.Substring(1)};pooling=true;sslmode=Require;trustservercertificate=True";
             }
             
             try

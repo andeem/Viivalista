@@ -1,4 +1,5 @@
-﻿
+﻿@using Viivalista.Models
+@model Tyontekija
 @{
     ViewData["Title"] = "Työntekijä";
 }
@@ -8,13 +9,10 @@
 
 
 
-<form action="/Tyontekijat" method="post">
-    Etunimi:<br />
-    <input type ="text" name="nimi" /><br />
-    Ryhmä:<br />
-    <input type="text" name="tyontekijaryhma" /><br />
-    <input type="checkbox" name="kone 1" value="Kone 1"/>Kone 1 <br />
-    <input type="checkbox" name="tarjotin 1" value="Tarjotin 1" />Tarjotin 1<br />
-    <input type="checkbox" name="kuvauslaite" value="Kuvauslaite" />Kuvauslaite<br /><br />
-    <input type="submit" value="Tallenna"/>
-</form>
+@using (Html.BeginForm("Lisaa", "Tyontekija", FormMethod.Post))
+{
+    @Html.TextBoxFor(t => t.nimi, "Nimi");
+    <br />
+    @Html.TextBoxFor(t => t.tyontekijaryhma, "Tyontekijäryhma");
+    <input type="submit" name="saveButton" value="Lisää" class="btn-success"/>
+}

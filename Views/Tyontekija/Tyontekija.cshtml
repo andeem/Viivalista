@@ -1,15 +1,15 @@
 ﻿@using Viivalista.Models
+@model Tyontekija
 
 @{
-    var t = ViewData["tyontekija"] as Tyontekija;
-    ViewData["Title"] =t.nimi;
+    ViewData["Title"] =Model.nimi;
 }
 
 
-<h1>@t.nimi</h1>
-<h2>@t.tyontekijaryhma</h2>
-<a asp-controller="Tyontekija" asp-action="Muokkaa" asp-route-id=@t.id class="btn btn-default">Muokkaa</a>
-<a asp-controller="Tyontekija" asp-action="Poista" asp-route-id=@t.id class ="btn btn-danger">Poista</a>
+<h1>@Model.nimi</h1>
+<h2>@Model.tyontekijaryhma</h2>
+<a asp-controller="Tyontekija" asp-action="Muokkaa" asp-route-id=@Model.id class="btn btn-default">Muokkaa</a>
+<a asp-controller="Tyontekija" asp-action="Poista" asp-route-id=@Model.id class ="btn btn-danger">Poista</a>
 
 <ul>
     <li>Työpisteet</li>

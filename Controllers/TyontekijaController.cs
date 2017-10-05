@@ -22,8 +22,8 @@ namespace Viivalista.Controllers
         {
             List<Tyontekija> tyontekijat = new List<Tyontekija>();
             tyontekijat.AddRange(Tyontekija.all());
-            ViewData["tyontekijat"] = tyontekijat;
-            return View();
+            
+            return View(tyontekijat);
         }
 
         [Route("Tyontekijat")]
@@ -39,8 +39,8 @@ namespace Viivalista.Controllers
         public IActionResult Nayta(int id)
         {
 
-            ViewData["tyontekija"] = Tyontekija.find(id);
-            return View("Tyontekija");
+            
+            return View("Tyontekija", Tyontekija.find(id));
         }
 
         public IActionResult Lisaa()
