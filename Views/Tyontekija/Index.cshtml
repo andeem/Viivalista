@@ -16,8 +16,8 @@
     @foreach(var t in Model)
     {
         <tr>
-            <td><a asp-area="" asp-controller="Tyontekija" asp-action="Nayta" asp-route-id=@t.id>@t.nimi</a></td>
-            <td>@t.tyontekijaryhma</td>
+            <td><a asp-area="" asp-controller="Tyontekija" asp-action="Nayta" asp-route-id=@t.Id>@t.Nimi</a></td>
+            <td>@t.Tyontekijaryhma</td>
         </tr>
 
     }

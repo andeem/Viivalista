@@ -9,10 +9,22 @@
 
 
 
-@using (Html.BeginForm("Lisaa", "Tyontekija", FormMethod.Post))
+@using (Html.BeginForm("Tallenna", "Tyontekija", FormMethod.Post))
 {
-    @Html.TextBoxFor(t => t.nimi, "Nimi");
+    @Html.LabelFor(t => t.Nimi);
     <br />
-    @Html.TextBoxFor(t => t.tyontekijaryhma, "Tyontekijäryhma");
+    @Html.TextBoxFor(t => t.Nimi, "Nimi");
+    <span asp-validation-for="Nimi" class="text-danger"></span>
+
+    <br />
+    @Html.LabelFor(t => t.Tyontekijaryhma);
+    <br />
+    @Html.TextBoxFor(t => t.Tyontekijaryhma, "Tyontekijäryhma");
+    <span asp-validation-for="Tyontekijaryhma" class="text-danger"></span>
+    <br />
     <input type="submit" name="saveButton" value="Lisää" class="btn-success"/>
 }
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>

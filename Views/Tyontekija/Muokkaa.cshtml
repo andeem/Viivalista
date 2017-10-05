@@ -1,21 +1,28 @@
 ﻿@using Viivalista.Models;
-
+@model Tyontekija
 @{
 
-    var t = ViewData["tyontekija"] as Tyontekija;
+    
 }
 
-<h1>@t.nimi</h1>
+<h1>@Model.Nimi</h1>
 <br />
 
-<form action="/Tyontekijat/Muokkaa" method="post">
-    Etunimi:<br />
-    <input type="text" name="nimi" value="@t.nimi" /><br />
-    Ryhmä:<br />
-    <input type="text" name="tyontekijaryhma" value="@t.tyontekijaryhma" /><br />
-    <input type="hidden" name="id" value=@t.id />
-    <input type="checkbox" name="kone 1" value="Kone 1" />Kone 1 <br />
-    <input type="checkbox" name="tarjotin 1" value="Tarjotin 1" />Tarjotin 1<br />
-    <input type="checkbox" name="kuvauslaite" value="Kuvauslaite" />Kuvauslaite<br /><br />
-    <input type="submit" value="Tallenna" />
-</form>
+@using (Html.BeginForm("TallennaVanha", "Tyontekija", FormMethod.Post))
+{
+    @Html.Label("Nimi");
+    <br />
+    @Html.TextBoxFor(t => t.Nimi, Model.Nimi, "Nimi");
+    <span asp-validation-for="Nimi" class="text-danger"></span>
+    <br />
+    @Html.Label("Työntekijäryhmä");
+    <br />
+    @Html.TextBoxFor(t => t.Tyontekijaryhma, Model.Tyontekijaryhma, "Tyontekijäryhma");
+    <span asp-validation-for="Tyontekijaryhma" class="text-danger"></span>
+    <br />
+    <input type="submit" name="saveButton" value="Tallenna" class="btn-success" />
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>

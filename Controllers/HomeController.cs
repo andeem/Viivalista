@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System.Collections;
 using System.Text;
 using Npgsql;
 using Viivalista.lib;
+using Viivalista.Models;
 
 namespace Viivalista.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
 
             try
             {
-                NpgsqlConnection conn = Database.connection();
-                conn.Open();
-
-                if (conn.State == System.Data.ConnectionState.Open)
+                Kayttaja k = Kayttaja.get("matmei", "matmei");
+                if (k != null)
                 {
-                    ViewData["Message"] = "Tietokantayhteys toimii";
+                    ViewData["Message"] = GetUserLoggedIn().Kayttajatunnus;
                 }
-                conn.Close();
             }
             catch
             {
@@ -81,6 +80,16 @@ namespace Viivalista.Controllers
         public IActionResult Kirjautuminen()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Kirjautuminen(Kayttaja k)
+        {
+            Kayttaja kayt = Kayttaja.get(k.Kayttajatunnus, k.Salasana);
+            if (kayt != null)
+            {
+                HttpContext.Session.SetInt32("userid", kayt.Id);
+            }
+            return RedirectToAction("Index");
         }
 
 

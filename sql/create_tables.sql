@@ -38,3 +38,11 @@ CREATE TABLE Vuoro(
 	FOREIGN KEY (Tyontekija_id) REFERENCES Tyontekija,
 	FOREIGN KEY (Tyontekija_id) REFERENCES Tyontekija
 );
+CREATE TABLE Kayttaja(
+	id SERIAL PRIMARY KEY,
+	kayttajatunnus VARCHAR,
+	salasana VARCHAR,
+	tyontekija INT,
+	esimies BOOLEAN,
+	FOREIGN KEY (tyontekija) REFERENCES Tyontekija
+	);

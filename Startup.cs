@@ -31,6 +31,7 @@ namespace Viivalista
         {
             // Add framework services.
             services.AddMvc();
+            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(1); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +50,8 @@ namespace Viivalista
             }
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

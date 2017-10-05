@@ -10,21 +10,24 @@ namespace Viivalista.Models
 {
     public class Tyontekija
     {
-        public int id { get; set; }
+        public int Id { get; }
         [Required(ErrorMessage="Nimi pitää antaa")]
-        public String nimi { get; set; }
-        public String tyontekijaryhma { get; set; }
+        [StringLength(30, MinimumLength = 3, ErrorMessage ="Nimen pituus väliltä 3-30 merkkiä")]
+        public String Nimi { get; set; }
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Ryhmän pituus väliltä 3-30 merkkiä")]
+        public String Tyontekijaryhma { get; set; }
 
-
-        public Tyontekija(String nimi, String tryhma) : this(-1, nimi, tryhma)
+        public Tyontekija()
         {
+
         }
+
 
         public Tyontekija(int id, String nimi, String tryhma)
         {
-            this.id = id;
-            this.nimi = nimi;
-            this.tyontekijaryhma = tryhma;
+            this.Id = id;
+            this.Nimi = nimi;
+            this.Tyontekijaryhma = tryhma;
         }
 
         public static Tyontekija find(int id)
@@ -75,8 +78,8 @@ namespace Viivalista.Models
                 conn.Open();
                 using (var command = new NpgsqlCommand("INSERT INTO tyontekija (nimi, tyontekijaryhma) VALUES (@nimi, @tyontekijaryhma)", conn))
                 {
-                    command.Parameters.AddWithValue("nimi", this.nimi);
-                    command.Parameters.AddWithValue("tyontekijaryhma", this.tyontekijaryhma);
+                    command.Parameters.AddWithValue("nimi", this.Nimi);
+                    command.Parameters.AddWithValue("tyontekijaryhma", this.Tyontekijaryhma);
 
                     command.ExecuteNonQuery();
                 }
@@ -90,9 +93,9 @@ namespace Viivalista.Models
                 conn.Open();
                 using (var command = new NpgsqlCommand("UPDATE Tyontekija SET nimi = @nimi, tyontekijaryhma = @tryhma WHERE id = @id", conn))
                 {
-                    command.Parameters.AddWithValue("nimi", this.nimi);
-                    command.Parameters.AddWithValue("tryhma", this.tyontekijaryhma);
-                    command.Parameters.AddWithValue("id", this.id);
+                    command.Parameters.AddWithValue("nimi", this.Nimi);
+                    command.Parameters.AddWithValue("tryhma", this.Tyontekijaryhma);
+                    command.Parameters.AddWithValue("id", this.Id);
 
                     command.ExecuteNonQuery();
                 }
@@ -106,7 +109,7 @@ namespace Viivalista.Models
                 conn.Open();
                 using (var command = new NpgsqlCommand("DELETE FROM Tyontekija WHERE id = @id", conn))
                 {
-                    command.Parameters.AddWithValue("id", this.id);
+                    command.Parameters.AddWithValue("id", this.Id);
 
                     command.ExecuteNonQuery();
                 } 

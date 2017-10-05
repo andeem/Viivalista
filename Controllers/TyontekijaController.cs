@@ -28,11 +28,15 @@ namespace Viivalista.Controllers
 
         [Route("Tyontekijat")]
         [HttpPost]
-        public IActionResult Tallenna(String nimi, String tyontekijaryhma)
+        public IActionResult Tallenna(Tyontekija t)
         {
-            new Tyontekija(nimi, tyontekijaryhma).save();
-            ViewData["tyontekijat"] = Tyontekija.all();
-            return View("Index");
+            if (ModelState.IsValid)
+            {
+                t.save();
+            }
+            
+            
+            return View("Index", Tyontekija.all());
         }
 
         [Route("Tyontekijat/{id}")]
@@ -45,37 +49,35 @@ namespace Viivalista.Controllers
 
         public IActionResult Lisaa()
         {
+           
             return View();
         }
 
         [Route("Tyontekijat/Muokkaa/{id}")]
         public IActionResult Muokkaa(int id)
         {
-            Tyontekija t = Tyontekija.find(id);
-            ViewData["tyontekija"] = t;
-            ViewData["title"] = t.nimi;
-            return View();
+
+            return View(Tyontekija.find(id));
         }
 
         [Route("Tyontekijat/{id}")]
         [HttpPost]
-        public IActionResult Tallenna(int id, String nimi, String tyontekijaryhma)
+        public IActionResult TallennaVanha(Tyontekija t)
         {
-            Tyontekija t = Tyontekija.find(id);
-            t.nimi = nimi;
-            t.tyontekijaryhma = tyontekijaryhma;
-            t.update();
-            ViewData["tyontekija"] = t;
-            ViewData["title"] = t.nimi;
-            return View("Tyontekija");
+            if (ModelState.IsValid)
+            {
+                t.update();
+            }
+            
+            return View("Tyontekija", t);
         }
 
         
-        public IActionResult Poista(int id)
+        public IActionResult Poista(Tyontekija t)
         {
-            Tyontekija.find(id).delete();
-            ViewData["tyontekijat"] = Tyontekija.all();
-            return RedirectToAction("Index");
+            t.delete();
+            
+            return RedirectToAction("Index", Tyontekija.all());
         }
 
     }
