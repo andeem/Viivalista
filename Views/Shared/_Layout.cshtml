@@ -35,7 +35,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Etusivu</a></li>
                     @if (Context.Session.GetInt32("userid") != null)
                     {
-                        if (Context.Session.GetString("userRole").Equals("False"))
+                        if (Context.Session.GetString("userRole").Equals("True"))
                         {
                     <li><a asp-area="" asp-controller="Home" asp-action="Paivalista">Paivalista</a></li>
                     <li><a asp-area="" asp-controller="Tyontekija" asp-action="Index">Työntekijät</a></li>
