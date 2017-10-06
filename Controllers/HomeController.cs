@@ -17,6 +17,7 @@ namespace Viivalista.Controllers
         public IActionResult Index()
         {
 
+
             try
             {
                 Kayttaja k = Kayttaja.get("matmei", "matmei");
@@ -55,11 +56,7 @@ namespace Viivalista.Controllers
 
             return View();
         }
-        public IActionResult MuokkaaHuomio()
-        {
 
-            return View();
-        }
 
         public IActionResult Tyopisteet()
         {
@@ -72,25 +69,9 @@ namespace Viivalista.Controllers
 
             return View();
         }
-        public IActionResult Huomio()
-        {
 
-            return View();
-        }
-        public IActionResult Kirjautuminen()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Kirjautuminen(Kayttaja k)
-        {
-            Kayttaja kayt = Kayttaja.get(k.Kayttajatunnus, k.Salasana);
-            if (kayt != null)
-            {
-                HttpContext.Session.SetInt32("userid", kayt.Id);
-            }
-            return RedirectToAction("Index");
-        }
+
+
 
 
         public IActionResult Error()

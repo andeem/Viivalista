@@ -1,0 +1,22 @@
+﻿@using Viivalista.Models
+@model  IEnumerable<Huomio>
+
+@{
+    ViewData["Title"] = "Omat tiedot";
+}
+
+<h1>Matti Meikäläinen</h1>
+
+<ul>
+    @foreach (Huomio h in Model)
+    {
+    <li>
+        <td>@h.Aika</td>
+        
+        <td><a href="#">@h.Nimi</a></td>
+        <td>@h.Kuvaus</td>
+    </li>
+    }
+</ul>
+    <br />
+    <button>Uusi</button>

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Oma sivu";
+}
+
+<h1>Uusi työntekijä</h1>
+<br />
+
+<form action="/home/OmaSivu" method="post">
+    Paiva:<br />
+    <input type="text" name="paiva" /><br />
+    Kellonaika:<br />
+    <input type="text" name="aika" /><br />
+    Meno:<br />
+    <input type="text" name="meno" /><br />
+    Kuvaus:<br />
+    <textarea name="kuvaus" rows="5" cols="30">Lyhyt kuvaus </textarea><br />
+    <input type="submit" value="Tallenna" />
+</form>

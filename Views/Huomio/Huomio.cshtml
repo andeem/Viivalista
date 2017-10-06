@@ -1,8 +1,10 @@
-﻿@{
+﻿@using Viivalista.Models;
+@Model Huomio;
+@{
     ViewData["Title"] = "Hammaslääkäri";
 }
 
-<h1>Hammaslääkäri</h1>
+<h1>@Model.Nimi</h1>
 <table>
     <tr>
         <th>Tapahtuma</th>
@@ -11,10 +13,10 @@
         <th>Kuvaus</th>
     </tr>
     <tr>
-        <td>Hammaslääkäri</td>
-        <td>1.10.2017</td>
-        <td>10.00</td>
-        <td>Hammaslääkärissä käynti</td>
+        <td>@Model.Nimi</td>
+        <td>@Model.Aika.Date()</td>
+        <td>@Model.Aika.Time()</td>
+        <td>Model.Kuvaus</td>
     </tr>
 </table>
 <button>Muokkaa</button>
