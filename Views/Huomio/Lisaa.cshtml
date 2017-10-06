@@ -1,0 +1,32 @@
+﻿@using Viivalista.Models
+@model Huomio
+@{
+    ViewData["Title"] = "Huomio";
+}
+
+<h1>Uusi huomio</h1>
+<br />
+
+
+
+@using (Html.BeginForm("Tallenna", "Huomio", FormMethod.Post))
+{
+    @Html.LabelFor(h => h.Nimi);
+    <br />
+    @Html.TextBoxFor(h => h.Nimi, "Nimi");
+    <span asp-validation-for="Nimi" class="text-danger"></span>
+
+    <br />
+    @Html.LabelFor(h => h.Kuvaus);
+    <br />
+    @Html.TextBoxFor(h => h.Kuvaus, "Nimi");
+    <span asp-validation-for="Kuvaus" class="text-danger"></span>
+    <br />
+    @Html.EditorFor(model => model.Aika, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+    <span asp-validation-for="Aika" class="text-danger"></span>
+    <input type="submit" name="saveButton" value="Lisää" class="btn-success" />
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>

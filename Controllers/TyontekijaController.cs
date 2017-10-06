@@ -9,7 +9,7 @@ using Viivalista.Models;
 
 namespace Viivalista.Controllers
 {
-    public class TyontekijaController : Controller
+    public class TyontekijaController : BaseController
     {
 
 
@@ -20,6 +20,7 @@ namespace Viivalista.Controllers
         [Route("Tyontekijat")]
         public IActionResult Index()
         {
+
             List<Tyontekija> tyontekijat = new List<Tyontekija>();
             tyontekijat.AddRange(Tyontekija.all());
             

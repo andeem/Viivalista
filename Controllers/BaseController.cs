@@ -42,7 +42,7 @@ namespace Viivalista.Controllers
 
         public IActionResult Kirjautuminen()
         {
-            return View();
+            return View("Kirjautuminen");
         }
         [HttpPost]
         public IActionResult Kirjautuminen(Kayttaja k)
@@ -57,5 +57,8 @@ namespace Viivalista.Controllers
         }
 
 
+
+
     }
+
 }

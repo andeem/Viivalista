@@ -35,14 +35,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Etusivu</a></li>
                     @if (Context.Session.GetInt32("userid") != null)
                     {
-                        if (Context.Session.GetString("userRole").Equals("False"))
+                        if (Context.Session.GetString("userRole").Equals("True"))
                         {
                     <li><a asp-area="" asp-controller="Home" asp-action="Paivalista">Paivalista</a></li>
                     <li><a asp-area="" asp-controller="Tyontekija" asp-action="Index">Työntekijät</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Tyopisteet">Työpisteet</a></li>
                         }
                     <li><a asp-area="" asp-controller="Huomio" asp-action="Index">Oma sivu</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="KirjauduUlos">Kirjaudu ulos</a></li>
+                    <li><a asp-area="" asp-controller="Base" asp-action="KirjauduUlos">Kirjaudu ulos</a></li>
                     }
                     @if (Context.Session.GetInt32("userid") == null)
                     {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Viivalista.Models;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,10 +29,20 @@ namespace Viivalista.Controllers
 
             return View();
         }
-        public IActionResult wHuomio()
+        public IActionResult Lisaa()
         {
 
             return View();
+        }
+        public IActionResult Tallenna(Huomio h)
+        {
+            if (ModelState.IsValid)
+            {
+                h.save();
+            }
+
+
+            return View("Index", Huomio.HaeTyontekijalla(GetUserLoggedIn()));
         }
     }
 }
