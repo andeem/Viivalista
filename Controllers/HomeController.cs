@@ -9,6 +9,7 @@ using System.Text;
 using Npgsql;
 using Viivalista.lib;
 using Viivalista.Models;
+using System.Security.Claims;
 
 namespace Viivalista.Controllers
 {

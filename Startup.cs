@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace Viivalista
 {
@@ -32,6 +33,11 @@ namespace Viivalista
             // Add framework services.
             services.AddMvc();
             services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(1); });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Kirjautunut", policy => policy.RequireClaim(ClaimTypes.PrimarySid));
+                options.AddPolicy("Esimies", policy => policy.RequireRole("True"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +58,18 @@ namespace Viivalista
             app.UseStaticFiles();
 
             app.UseSession();
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AccessDeniedPath = "/",
+                AuthenticationScheme = "MyCookieAuthenticationScheme",
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                LoginPath = "/Home/Kirjautuminen/"
+            });
+
+
+
 
             app.UseMvc(routes =>
             {

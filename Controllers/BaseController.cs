@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Viivalista.Models;
-
+using System.Security.Claims;
 
 namespace Viivalista.Controllers
 {
@@ -20,22 +20,19 @@ namespace Viivalista.Controllers
 
         public Kayttaja GetUserLoggedIn()
         {
-            if (HttpContext.Session.GetInt32("userid") != null)
+            if (HttpContext.User != null)
             {
-                return Kayttaja.get((int)HttpContext.Session.GetInt32("userid"));
+                return Kayttaja.get(int.Parse(HttpContext.User.FindFirst(ClaimTypes.PrimarySid).Value));
             } else
             {
                 return null;
             }
         }
 
-        public IActionResult KirjauduUlos()
+        public async Task<IActionResult> KirjauduUlos()
         {
 
-            if (HttpContext.Session.GetInt32("userid") != null)
-            {
-                HttpContext.Session.Clear();
-            }
+            await HttpContext.Authentication.SignOutAsync("MyCookieAuthenticationScheme");
 
             return RedirectToAction("Index");
         }
@@ -44,17 +41,27 @@ namespace Viivalista.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Kirjautuminen(Kayttaja k)
+        public async Task<IActionResult> Kirjautuminen(Kayttaja k)
         {
             Kayttaja kayt = Kayttaja.get(k.Kayttajatunnus, k.Salasana);
             if (kayt != null)
             {
-                HttpContext.Session.SetInt32("userid", kayt.Id);
-                HttpContext.Session.SetString("userRole", kayt.Esimies.ToString());
+                var claims = new List<Claim> { new Claim(ClaimTypes.PrimarySid, kayt.Id.ToString()),
+                                               new Claim(ClaimTypes.Name, kayt.Kayttajatunnus, ClaimValueTypes.String),
+                                               
+                                               new Claim(ClaimTypes.Role, kayt.Esimies.ToString(), ClaimValueTypes.String),
+                                               };
+                var userIdentity = new ClaimsIdentity(claims, "MyAuth");
+                var userPrincipal = new ClaimsPrincipal(userIdentity);
+                await HttpContext.Authentication.SignInAsync("MyCookieAuthenticationScheme", userPrincipal);
+
             }
             return RedirectToAction("Index");
         }
+
+
 
 
     }

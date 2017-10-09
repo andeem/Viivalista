@@ -33,9 +33,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Etusivu</a></li>
-                    @if (Context.Session.GetInt32("userid") != null)
+                    @if (Context.User.Identity.IsAuthenticated)
                     {
-                        if (Context.Session.GetString("userRole").Equals("True"))
+                        if (Context.User.IsInRole("True"))
                         {
                     <li><a asp-area="" asp-controller="Home" asp-action="Paivalista">Paivalista</a></li>
                     <li><a asp-area="" asp-controller="Tyontekija" asp-action="Index">Työntekijät</a></li>
@@ -44,7 +44,7 @@
                     <li><a asp-area="" asp-controller="Huomio" asp-action="Index">Oma sivu</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="KirjauduUlos">Kirjaudu ulos</a></li>
                     }
-                    @if (Context.Session.GetInt32("userid") == null)
+                    @if (!Context.User.Identity.IsAuthenticated)
                     {
                     <li><a asp-area="" asp-controller="Home" asp-action="Kirjautuminen">Kirjaudu</a></li>
                     }
