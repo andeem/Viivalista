@@ -42,7 +42,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Tyopisteet">Työpisteet</a></li>
                         }
                     <li><a asp-area="" asp-controller="Huomio" asp-action="Index">Oma sivu</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="KirjauduUlos">Kirjaudu ulos</a></li>
+                    <li><a asp-area="" asp-controller="Base" asp-action="KirjauduUlos">Kirjaudu ulos</a></li>
                     }
                     @if (!Context.User.Identity.IsAuthenticated)
                     {

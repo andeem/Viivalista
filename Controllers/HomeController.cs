@@ -19,32 +19,10 @@ namespace Viivalista.Controllers
         {
 
 
-            try
-            {
-                Kayttaja k = Kayttaja.get("matmei", "matmei");
-                if (k != null)
-                {
-                    ViewData["Message"] = GetUserLoggedIn().Kayttajatunnus;
-                }
-            }
-            catch
-            {
-
-            }
             return View();
         }
 
-        public IActionResult Tyontekijat()
-        {
 
-            return View();
-        }
-
-        public IActionResult OmaSivu()
-        {
-
-            return View();
-        }
 
         public IActionResult Paivalista()
         {
@@ -52,11 +30,7 @@ namespace Viivalista.Controllers
             return View();
         }
 
-        public IActionResult MuokkaatyonTekija()
-        {
 
-            return View();
-        }
 
 
         public IActionResult Tyopisteet()

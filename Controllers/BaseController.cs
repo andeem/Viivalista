@@ -39,7 +39,7 @@ namespace Viivalista.Controllers
 
         public IActionResult Kirjautuminen()
         {
-            return View();
+            return View("Kirjautuminen");
         }
 
         [HttpPost]
@@ -65,4 +65,5 @@ namespace Viivalista.Controllers
 
 
     }
+
 }

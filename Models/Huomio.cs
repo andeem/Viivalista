@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Viivalista.lib;
@@ -10,10 +11,13 @@ namespace Viivalista.Models
     public class Huomio
     {
 
-        public int Id;
-        public String Nimi;
-        public String Kuvaus;
-        public DateTime Aika;
+        public int Id { get;}
+        [Required(ErrorMessage = "Nimi vaaditaan")]
+        public String Nimi { get; set; }
+        [Required(ErrorMessage = "Kuvaus vaaditaan")]
+        public String Kuvaus { get; set; }
+        [Required(ErrorMessage = "Valitse aika")]
+        public DateTime Aika { get; set; }
 
 
         public Huomio() { }
@@ -39,7 +43,7 @@ namespace Viivalista.Models
                     List<Huomio> huomiot = new List<Huomio>();
                     while (reader.Read())
                     {
-                        
+
                         huomiot.Add(new Huomio((int)reader[0], (String)reader[1], (String)reader[2], (DateTime)reader[3]));
                     }
                     return huomiot;
@@ -47,7 +51,23 @@ namespace Viivalista.Models
 
 
             }
-            ;
+
         }
+        public void save()
+        {
+            using (var conn = Database.connection())
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand("INSERT INTO huomio (nimi, kuvaus, pvm, tyontekija_id) VALUES (@nimi, @kuvaus, @aika, 1)", conn))
+                {
+                    command.Parameters.AddWithValue("nimi", this.Nimi);
+                    command.Parameters.AddWithValue("kuvaus", this.Kuvaus);
+                    command.Parameters.AddWithValue("aika", this.Aika);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

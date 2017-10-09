@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Viivalista.Controllers
 {
+
     [Authorize(Policy = "Esimies")]
+
     public class TyontekijaController : BaseController
     {
 
@@ -22,6 +24,7 @@ namespace Viivalista.Controllers
         [Route("Tyontekijat")]
         public IActionResult Index()
         {
+
             List<Tyontekija> tyontekijat = new List<Tyontekija>();
             tyontekijat.AddRange(Tyontekija.all());
             
