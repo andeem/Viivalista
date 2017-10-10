@@ -1,24 +1,26 @@
-﻿@{
+﻿@using Viivalista.Models
+
+@model IEnumerable<Tyopiste>
+
+@{
     ViewData["Title"] = "Työpisteet";
 }
+
 <h2>@ViewData["Title"]</h2>
+
 <a href="#" class="btn btn-default">Lisää työpiste</a>
 <br />
+
 <table style="width:100%">
     <tr>
         <th>Nimi</th>
 
     </tr>
+    @foreach(var t in Model){
     <tr>
-        <td><a href="#">Kone 1</a></td>
+        <td><a href="#">@t.Nimi</a></td>
 
     </tr>
-    <tr>
-        <td><a href="#">Tarjotin 1</a></td>
+    }
 
-    </tr>
-    <tr>
-        <td><a href="#">Kuvauslaite</a></td>
-
-    </tr>
 </table>

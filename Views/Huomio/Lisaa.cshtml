@@ -1,0 +1,45 @@
+﻿@using Viivalista.Models
+@model Huomio
+@{
+    ViewData["Title"] = "Oma sivu";
+}
+
+<h1>Uusi huomio</h1>
+<br />
+
+@using (Html.BeginForm("Tallenna", "Huomio", FormMethod.Post))
+{
+    @Html.LabelFor(h => h.Nimi);
+    <br />
+    @Html.TextBoxFor(h => h.Nimi, "Nimi");
+    <span asp-validation-for="Nimi" class="text-danger"></span>
+    <br />
+    @Html.LabelFor(h => h.Aika);
+    <br />
+    @Html.TextBoxFor(h => h.Aika, "Aika", new { @id = "Aika" })
+    <span asp-validation-for="Aika" class="text-danger"></span>
+    <br />
+    @Html.LabelFor(h => h.Kuvaus);
+    <br />
+    @Html.TextAreaFor(h => h.Kuvaus, new { @class = "resizer" });
+    <span asp-validation-for="Kuvaus" class="text-danger"></span>
+    <br />
+    <input type="submit" name="saveButton" value="Tallenna" class="btn-success" />
+
+}
+
+
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+<link href="~/lib/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+<script src="~/lib/datetimepicker/jquery.js"></script>
+<script src="~/lib/datetimepicker/jquery.datetimepicker.js"></script>
+
+<script type="text/javascript">
+    jQuery('#Aika').datetimepicker();
+
+</script>

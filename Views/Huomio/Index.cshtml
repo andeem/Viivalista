@@ -5,7 +5,7 @@
     ViewData["Title"] = "Omat tiedot";
 }
 
-<h1>Matti Meikäläinen</h1>
+<h1>Omat tiedot</h1>
 
 <ul>
     @foreach (Huomio h in Model)
@@ -19,4 +19,4 @@
     }
 </ul>
     <br />
-    <button>Uusi</button>
+    <a asp-controller="Huomio" asp-action="Lisaa" class="btn btn-default">Lisää huomio</a>

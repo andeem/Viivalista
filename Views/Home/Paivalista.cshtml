@@ -1,4 +1,7 @@
-﻿
+﻿@using Viivalista.Models
+
+@model IEnumerable<Tyontekija>
+
 @{
     ViewData["Title"] = "Paivalista";
 }
@@ -10,47 +13,25 @@
 <br />
 <table style="width:100%">
     <tr>
-        <th style="width:30%">Työpiste</th>
-        <th>Työntekijä</th>
+        <th style="width:15%">Työntekijä</th>
+        @for (int i = 0; i < 12; i++)
+        {
+            <th style="width:100px">@(i+7)</th>
+        }
+
     </tr>
-    <tr>
-        <td>Kone 1</td>
-        <td><select>
-                <option>Matti Meikäläinen</option>
-                <option>Maija Meikäläinen</option>
-                <option>Seppo Mäkinen</option>
-            </select>
-        </td>
-        <td>
-            <button>Tyhjennä</button>
-        </td>
-    </tr>
-    <tr>
-        <td>Tarjotin 1</td>
-        <td>
-            <select>
-                <option>Matti Meikäläinen</option>
-                <option>Maija Meikäläinen</option>
-                <option>Seppo Mäkinen</option>
-            </select>
-        </td>
-        <td>
-            <button>Tyhjennä</button>
-        </td>
-    </tr>
-    <tr>
-        <td>Kuvauslaite</td>
-        <td>
-            <select>
-                <option>Matti Meikäläinen</option>
-                <option>Maija Meikäläinen</option>
-                <option>Seppo Mäkinen</option>
-            </select>
-        </td>
-        <td>
-            <button>Tyhjennä</button>
-        </td>
-    </tr>
+    @foreach (var t  in ViewData["tyontekijat"] as IEnumerable<Tyontekija>)
+    {
+        <tr>
+            <td>@t.Nimi</td>
+            @for (int i = 0; i < 12; i++)
+            {
+                <td style="width:100px">@Html.DropDownList("Nimi", new SelectList(t.luvat,"Nimi", "Nimi"), String.Empty, new { @style = "width:100%" })</td>
+            }
+
+        </tr>
+    }
+    
 </table>
 <br />
 <button>Tallenna</button>

@@ -18,6 +18,7 @@ namespace Viivalista.Models
         public String Kuvaus { get; set; }
         [Required(ErrorMessage = "Valitse aika")]
         public DateTime Aika { get; set; }
+        public int TyontekijaId { get; set; }
 
 
         public Huomio() { }
@@ -58,11 +59,12 @@ namespace Viivalista.Models
             using (var conn = Database.connection())
             {
                 conn.Open();
-                using (var command = new NpgsqlCommand("INSERT INTO huomio (nimi, kuvaus, pvm, tyontekija_id) VALUES (@nimi, @kuvaus, @aika, 1)", conn))
+                using (var command = new NpgsqlCommand("INSERT INTO huomio (nimi, kuvaus, aika, tyontekija_id) VALUES (@nimi, @kuvaus, @aika, @ttId)", conn))
                 {
                     command.Parameters.AddWithValue("nimi", this.Nimi);
                     command.Parameters.AddWithValue("kuvaus", this.Kuvaus);
                     command.Parameters.AddWithValue("aika", this.Aika);
+                    command.Parameters.AddWithValue("ttID", this.TyontekijaId);
 
                     command.ExecuteNonQuery();
                 }

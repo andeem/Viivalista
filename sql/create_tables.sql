@@ -21,8 +21,7 @@ CREATE TABLE Huomio(
 	id SERIAL,
 	Nimi VARCHAR(30),
 	Kuvaus VARCHAR(200),
-	Pvm DATE,
-	Aika DATE,
+	Aika TIMESTAMP,
 	Tyontekija_id INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY (Tyontekija_id) REFERENCES Tyontekija

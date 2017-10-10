@@ -34,7 +34,7 @@ namespace Viivalista.Controllers
 
             await HttpContext.Authentication.SignOutAsync("MyCookieAuthenticationScheme");
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult Kirjautuminen()

@@ -12,19 +12,13 @@ namespace Viivalista.Controllers
 {
 
     [Authorize(Policy = "Esimies")]
-
     public class TyontekijaController : BaseController
     {
 
-
         // GET: /<controller>/
-
-
-        
         [Route("Tyontekijat")]
         public IActionResult Index()
         {
-
             List<Tyontekija> tyontekijat = new List<Tyontekija>();
             tyontekijat.AddRange(Tyontekija.all());
             

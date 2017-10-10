@@ -26,7 +26,7 @@ namespace Viivalista.Controllers
 
         public IActionResult Paivalista()
         {
-
+            ViewData["tyontekijat"] = Tyontekija.getAllWithPermissions();
             return View();
         }
 
