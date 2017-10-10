@@ -18,8 +18,8 @@ namespace Viivalista.Controllers
         public IActionResult Index()
         {
 
-
-            return View();
+            ViewData["tyontekijat"] = Tyontekija.all();
+            return View(Vuoro.all());
         }
 
 
@@ -28,6 +28,13 @@ namespace Viivalista.Controllers
         {
             ViewData["tyontekijat"] = Tyontekija.getAllWithPermissions();
             return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Tallenna(IEnumerable<Vuoro> vuorot)
+        {
+            return View("Index");
         }
 
 

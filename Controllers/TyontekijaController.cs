@@ -43,32 +43,34 @@ namespace Viivalista.Controllers
         {
 
             
-            return View("Tyontekija", Tyontekija.find(id));
+            return View("Tyontekija", Tyontekija.findWithPermissions(id));
         }
 
         public IActionResult Lisaa()
         {
-           
+            ViewData["tyopisteet"] = Tyopiste.all();
             return View();
         }
 
         [Route("Tyontekijat/Muokkaa/{id}")]
         public IActionResult Muokkaa(int id)
         {
-
-            return View(Tyontekija.find(id));
+            ModelState.Clear();
+            return View(Tyontekija.findWithPermissions(id));
         }
 
         [Route("Tyontekijat/{id}")]
         [HttpPost]
         public IActionResult TallennaVanha(Tyontekija t)
         {
+            
             if (ModelState.IsValid)
             {
+
                 t.update();
             }
             
-            return View("Tyontekija", t);
+            return View("Tyontekija", Tyontekija.findWithPermissions(t.Id));
         }
 
         

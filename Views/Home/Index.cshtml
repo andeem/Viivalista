@@ -1,6 +1,17 @@
-﻿@{
+﻿@using Viivalista.Models
+@model IEnumerable<Vuoro>
+
+@{
     ViewData["Title"] = "Etusivu";
 }
+
+<style>
+    .Kone {
+        background-color: blue;
+    }
+
+
+</style>
 
 <h1>Viivalista</h1>
 <p>@ViewData["Message"]</p>
@@ -20,41 +31,30 @@
         <th style="width:100px">17.00</th>
 
     </tr>
-    <tr>
-        <td>Matti</td>
-        <td></td>
-        <td style="background-color:deepskyblue">1</td>
-        <td style="background-color:deepskyblue">1</td>
-        <td style="background-color:deepskyblue">1</td>
-        <td style="background-color:deepskyblue">1</td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:green">H1</td>
-    </tr>
-    <tr>
-        <td>Maija</td>
-        <td></td>
-        <td style="background-color:blueviolet">T1</td>
-        <td style="background-color:blueviolet">T1</td>
-        <td style="background-color:darkorange">K</td>
-        <td style="background-color:darkorange">K</td>
-        <td style="background-color:hotpink">SF</td>
-        <td style="background-color:hotpink">SF</td>
-        <td style="background-color:hotpink">SF</td>
-        <td style="background-color:hotpink">SF</td>
-    </tr>
-    <tr>
-        <td>Seppo</td>
-        <td></td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:blueviolet">T1</td>
-        <td style="background-color:blueviolet">T1</td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:green">H1</td>
-        <td style="background-color:green">H1</td>
-    </tr>
-</table>
+    @foreach (var t in ViewData["tyontekijat"] as IEnumerable<Tyontekija>)
+    {
+        <tr>
+            <th>@t.Nimi.Split(' ')[0]</th>
+            @for (int i = 7; i < 18; i++)
+            {
 
+                string n = "";
+                @foreach (var v in Model)
+                {
+                    @if (v.Tyontekija == t.Id)
+                    {
+                        if (v.Alku.Hour == i)
+                        {
+                            n = v.TyopisteNimi;
+                        }
+
+                    }
+
+                }
+                <td class="@n"></td>
+            }
+        </tr>
+
+    }
+
+</table>

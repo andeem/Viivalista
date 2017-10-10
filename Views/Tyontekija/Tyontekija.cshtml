@@ -12,10 +12,13 @@
 <a asp-controller="Tyontekija" asp-action="Poista" asp-route-id=@Model.Id class ="btn btn-danger">Poista</a>
 
 <ul>
-    <li>Työpisteet</li>
-    <ul>
-    <li>Kone 1</li>
-    <li>Tarjotin 1</li>
-    </ul>
-    
+@foreach(var tp in Model.Tyopisteet)
+{
+    if (tp.Allowed)
+    {
+        <li>@tp.Nimi</li>
+    }
+
+}
+
 </ul>

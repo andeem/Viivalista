@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm("TallennaVanha", "Tyontekija", FormMethod.Post))
 {
+    @Html.HiddenFor(t => t.Id, Model.Id);
     @Html.Label("Nimi");
     <br />
     @Html.TextBoxFor(t => t.Nimi, Model.Nimi, "Nimi");
@@ -20,6 +21,15 @@
     @Html.TextBoxFor(t => t.Tyontekijaryhma, Model.Tyontekijaryhma, "Tyontekijaryhma");
     <span asp-validation-for="Tyontekijaryhma" class="text-danger"></span>
     <br />
+    @for(int i = 0; i < Model.Tyopisteet.Count(); i++)
+    {
+        @Html.HiddenFor(tp => Model.Tyopisteet[i].Id, Model.Tyopisteet[i].Id)
+        @Html.CheckBoxFor(tp => Model.Tyopisteet[i].Allowed, Model.Tyopisteet[i].Allowed)
+        @Html.LabelFor(tp => Model.Tyopisteet[i].Nimi, Model.Tyopisteet[i].Nimi)
+        @Html.HiddenFor(tp => Model.Tyopisteet[i].Nimi, Model.Tyopisteet[i].Nimi)
+        <br />
+
+    }
     <input type="submit" name="saveButton" value="Tallenna" class="btn-success" />
 }
 

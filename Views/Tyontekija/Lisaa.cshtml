@@ -22,7 +22,14 @@
     @Html.TextBoxFor(t => t.Tyontekijaryhma, "Tyontekijaryhma");
     <span asp-validation-for="Tyontekijaryhma" class="text-danger"></span>
     <br />
-    
+    @foreach(var tp in ViewData["tyopisteet"] as IEnumerable<Tyopiste>)
+    {
+        @Html.CheckBox(tp.Nimi)
+        @Html.Label(tp.Nimi)
+        <br />
+
+    }
+
     <input type="submit" name="saveButton" value="Lisää" class="btn-success"/>
 }
 
