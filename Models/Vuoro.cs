@@ -23,14 +23,14 @@ namespace Viivalista.Models
             using (var conn = Database.connection())
             {
                 conn.Open();
-                using (var command = new NpgsqlCommand("SELECT * FROM Vuoro v INNER JOIN tyopiste t on v.tyopiste_id = t .id", conn))
+                using (var command = new NpgsqlCommand("SELECT * FROM Vuoro v INNER JOIN tyopiste t on v.tyopiste_id = t.id", conn))
                 {
                     var reader = command.ExecuteReader();
                     List<Vuoro> vuorot = new List<Vuoro>();
                     while (reader.Read())
                     {
                         vuorot.Add(new Vuoro() { Id = (int)reader[0],
-                                                 Alku = (DateTime)reader[1] + (TimeSpan)reader[2],
+                                                    Alku = (DateTime)reader[1] + (TimeSpan)reader[2],
                                                  Loppu = (DateTime)reader[1] + (TimeSpan)reader[3],
                                                  Tyontekija = (int)reader[4],
                                                  Tyopiste = (int)reader[5],
@@ -44,16 +44,23 @@ namespace Viivalista.Models
         }
         public void save()
         {
-            using (var conn = Database.connection())
+            if (Tyontekija != 0 && Tyopiste != 0)
             {
-                conn.Open();
-                using (var command = new NpgsqlCommand("INSERT INTO Luvat (pvm, alkuaika, loppuaika, tyopiste_id, tyontekija_id) VALUES (@pvm, @alku, @loppu, @tt, @tp)", conn))
+
+
+                using (var conn = Database.connection())
                 {
-                    command.Parameters.AddWithValue("pvm", this.Alku.Date);
-                    command.Parameters.AddWithValue("alku", this.Alku.TimeOfDay);
-                    command.Parameters.AddWithValue("loppu", this.Loppu.TimeOfDay);
-                    command.Parameters.AddWithValue("tt", this.Tyontekija);
-                    command.Parameters.AddWithValue("tp", this.Tyopiste);
+                    conn.Open();
+                    using (var command = new NpgsqlCommand("INSERT INTO Vuoro (pvm, alkuaika, loppuaika, tyopiste_id, tyontekija_id) VALUES (@pvm, @alku, @loppu, @tt, @tp)", conn))
+                    {
+                        command.Parameters.AddWithValue("pvm", this.Alku.Date);
+                        command.Parameters.AddWithValue("alku", this.Alku.TimeOfDay);
+                        command.Parameters.AddWithValue("loppu", this.Loppu.TimeOfDay);
+                        command.Parameters.AddWithValue("tt", this.Tyontekija);
+                        command.Parameters.AddWithValue("tp", this.Tyopiste);
+
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
         }

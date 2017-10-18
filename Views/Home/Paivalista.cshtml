@@ -7,30 +7,42 @@
 }
 
 <h2>Päivälista</h2>
-<select name="paiva">
-    <option>1.10.2017</option>
-</select>
+@Html.TextBox("aika", "", new { @class = "date-picker" })
 <br />
-@using (Html.BeginForm("Tallenna", "Home", FormMethod.Post)) { 
+@using (Html.BeginForm("Tallenna", "Home", FormMethod.Post)) {
 <table style="width:100%">
     <tr>
         <th style="width:15%">Työntekijä</th>
-        @for (int i = 0; i < 12; i++)
+        @for (int k = 0; k < 12; k++)
         {
-            <th style="width:100px">@(i + 7)</th>
+            <th style="width:100px">@(k + 7)</th>
         }
 
     </tr>
+    
+    
     @{List<Tyontekija> tt = ViewData["tyontekijat"] as List<Tyontekija>;}
     @for (int i = 0; i < tt.Count; i++)
     {
+
+        var lista = new SelectList(tt[i].Tyopisteet.Where(x => x.Allowed == true), "Id", "Nimi");
         <tr>
             <td>@tt[i].Nimi</td>
+           
+            
             @for (int j = 0; j < 12; j++)
 
             {
-                //@Html.HiddenFor(v => v.Alku)
-                <td style="width:100px">@Html.DropDownListFor(v => v[j].Tyopiste, new SelectList(tt[i].Tyopisteet.Where(x => x.Allowed == true), "Nimi", "Nimi"), String.Empty, new { @style = "width:100%" })</td>
+                int ind = j + (i * 12);
+
+                <td style="width:100px">
+                    
+                    <input id="z@ind__Alku" name= "[@ind].Alku" type="hidden" value= "@DateTime.Today.AddHours(j + 7)" />
+                    <input id="z@ind__Loppu" name="[@ind].Loppu" type="hidden" value= "@DateTime.Today.AddHours(j + 8)" />
+                    <input id="z@ind__Nimi" name="[@ind].Tyontekija" type="hidden" value=@tt[i].Id />
+                    @Html.DropDownListFor(v => v[ind].Tyopiste, lista, String.Empty, new { style = "width:100%" })
+                    
+                </td>
 
             }
 
@@ -41,3 +53,12 @@
 <br />
 <button>Tallenna</button>
 }
+
+<link href="~/lib/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+<script src="~/lib/datetimepicker/jquery.js"></script>
+<script src="~/lib/datetimepicker/jquery.datetimepicker.js"></script>
+
+<script type="text/javascript">
+    jQuery('#Aika').datetimepicker();
+
+</script>

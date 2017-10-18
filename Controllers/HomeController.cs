@@ -34,7 +34,12 @@ namespace Viivalista.Controllers
         [HttpPost]
         public IActionResult Tallenna(IEnumerable<Vuoro> vuorot)
         {
-            return View("Index");
+            foreach (var v in vuorot)
+            {
+                v.save();
+            }
+            ViewData["tyontekijat"] = Tyontekija.all();
+            return View("Index", Vuoro.all());
         }
 
 
