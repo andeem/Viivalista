@@ -1,36 +1,37 @@
-﻿@using Viivalista.Models
+﻿@using Viivalista.Models;
 @model Tyontekija
 @{
-    ViewData["Title"] = "Työntekijä";
+
+
 }
 
 <h1>Uusi työntekijä</h1>
 <br />
 
-
-
 @using (Html.BeginForm("Tallenna", "Tyontekija", FormMethod.Post))
 {
-    @Html.LabelFor(t => t.Nimi);
+
+    @Html.Label("Nimi");
     <br />
     @Html.TextBoxFor(t => t.Nimi, "Nimi");
-    <span asp-validation-for="Nimi" class="text-danger"></span>
-
+    //<span asp-validation-for="Nimi" class="text-danger"></span>
     <br />
-    @Html.LabelFor(t => t.Tyontekijaryhma);
+    @Html.Label("Työntekijäryhmä");
     <br />
     @Html.TextBoxFor(t => t.Tyontekijaryhma, "Tyontekijaryhma");
-    <span asp-validation-for="Tyontekijaryhma" class="text-danger"></span>
+    //<span asp-validation-for="Tyontekijaryhma" class="text-danger"></span>
     <br />
-    @foreach(var tp in ViewData["tyopisteet"] as IEnumerable<Tyopiste>)
+    var tyop = ViewData["tyopisteet"] as List<Tyopiste>;
+    @for (int i = 0; i < tyop.Count(); i++)
     {
-        @Html.CheckBox(tp.Nimi)
-        @Html.Label(tp.Nimi)
+        <input id="Tyopisteet_{@i}__Id" name="Tyopisteet[@i].Id" type="hidden" value=@tyop[i].Id />
+        @Html.CheckBoxFor(t => t.Tyopisteet[i].Allowed, false)
+        @Html.LabelFor(t => t.Tyopisteet[i].Nimi, tyop[i].Nimi)
+        <input id="Tyopisteet_{@i}__Nimi" name="Tyopisteet[@i].Nimi" type="hidden" value=@tyop[i].Nimi />
         <br />
 
     }
-
-    <input type="submit" name="saveButton" value="Lisää" class="btn-success"/>
+    <input type="submit" name="saveButton" value="Tallenna" class="btn-success" />
 }
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>

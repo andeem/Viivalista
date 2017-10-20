@@ -29,6 +29,8 @@ namespace Viivalista.Controllers
         [HttpPost]
         public IActionResult Tallenna(Tyontekija t)
         {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
             if (ModelState.IsValid)
             {
                 t.save();

@@ -51,7 +51,7 @@ namespace Viivalista.Models
                 using (var conn = Database.connection())
                 {
                     conn.Open();
-                    using (var command = new NpgsqlCommand("INSERT INTO Vuoro (pvm, alkuaika, loppuaika, tyopiste_id, tyontekija_id) VALUES (@pvm, @alku, @loppu, @tt, @tp)", conn))
+                    using (var command = new NpgsqlCommand("INSERT INTO Vuoro (pvm, alkuaika, loppuaika, tyopiste_id, tyontekija_id) VALUES (@pvm, @alku, @loppu, @tp, @tt)", conn))
                     {
                         command.Parameters.AddWithValue("pvm", this.Alku.Date);
                         command.Parameters.AddWithValue("alku", this.Alku.TimeOfDay);

@@ -7,7 +7,7 @@
 }
 
 <h2>Päivälista</h2>
-@Html.TextBox("aika", "", new { @class = "date-picker" })
+@Html.TextBox("Aika", "", new { @class = "date-picker" })
 <br />
 @using (Html.BeginForm("Tallenna", "Home", FormMethod.Post)) {
 <table style="width:100%">
@@ -37,8 +37,8 @@
 
                 <td style="width:100px">
                     
-                    <input id="z@ind__Alku" name= "[@ind].Alku" type="hidden" value= "@DateTime.Today.AddHours(j + 7)" />
-                    <input id="z@ind__Loppu" name="[@ind].Loppu" type="hidden" value= "@DateTime.Today.AddHours(j + 8)" />
+                    <input id="z@ind__Alku" name= "[@ind].Alku" type="hidden" value= "@DateTime.Today.AddHours(j + 7)" class="alku"  />
+                    <input id="z@ind__Loppu" name="[@ind].Loppu" type="hidden" value= "@DateTime.Today.AddHours(j + 8)" class="loppu" />
                     <input id="z@ind__Nimi" name="[@ind].Tyontekija" type="hidden" value=@tt[i].Id />
                     @Html.DropDownListFor(v => v[ind].Tyopiste, lista, String.Empty, new { style = "width:100%" })
                     
@@ -59,6 +59,30 @@
 <script src="~/lib/datetimepicker/jquery.datetimepicker.js"></script>
 
 <script type="text/javascript">
-    jQuery('#Aika').datetimepicker();
 
+    $('#Aika').datetimepicker(
+        {
+            onSelectDate: function ($input) { muutaPvm($input); },
+            format: 'd.m.Y'
+        })
+
+    function muutaPvm(pvm) {
+        var alut = document.getElementsByClassName("alku");
+        var loput = document.getElementsByClassName("loppu");
+        var d = pvm.getDate() + "." + pvm.getMonth() + "." + pvm.getFullYear();
+        for (var i = 0; i < alut.length; i++) {
+            var s = alut[i].attributes.value.value;
+            
+            s = d + s.slice(10);
+            alut[i].attributes.value.value = s;
+        }
+        for (var i = 0; i < loput.length; i++) {
+            var s = loput[i].attributes.value.value;
+
+            s = d + s.slice(10);
+            loput[i].attributes.value.value = s;
+        }
+        console.log(alut);
+
+    }
 </script>

@@ -82,12 +82,43 @@ namespace Viivalista.Models
             using (var conn = Database.connection())
             {
                 conn.Open();
-                using (var command = new NpgsqlCommand("INSERT INTO tyontekija (nimi, tyontekijaryhma) VALUES (@nimi, @tyontekijaryhma)", conn))
+                using (var command = new NpgsqlCommand("INSERT INTO tyontekija (nimi, tyontekijaryhma) VALUES (@nimi, @tyontekijaryhma) RETURNING Id", conn))
                 {
                     command.Parameters.AddWithValue("nimi", this.Nimi);
                     command.Parameters.AddWithValue("tyontekijaryhma", this.Tyontekijaryhma);
 
-                    command.ExecuteNonQuery();
+                    var reader=  command.ExecuteReader();
+                    reader.Read();
+                    this.Id = (int)reader[0];
+                    reader.Close();
+
+                    foreach (var tp in Tyopisteet)
+                    {
+                        if (tp.Allowed)
+                        {
+                            try
+                            {
+                                command.CommandText = ("INSERT INTO Luvat (tyopiste_id, tyontekija_id) VALUES (@tp_id, @t_id)");
+                                command.Parameters.AddWithValue("t_id", this.Id);
+                                command.Parameters.AddWithValue("tp_id", tp.Id);
+                                command.ExecuteNonQuery();
+                                command.Parameters.Clear();
+                            }
+                            catch (Exception)
+                            {
+                                command.Parameters.Clear();
+                            }
+
+                        }
+                        else
+                        {
+                            command.CommandText = ("DELETE FROM Luvat WHERE tyopiste_id=@tp_id AND tyontekija_id = @t_id");
+                            command.Parameters.AddWithValue("t_id", this.Id);
+                            command.Parameters.AddWithValue("tp_id", tp.Id);
+                            command.ExecuteNonQuery();
+                            command.Parameters.Clear();
+                        }
+                    }
                 }
             }
         }
@@ -142,10 +173,18 @@ namespace Viivalista.Models
             using (var conn = Database.connection())
             {
                 conn.Open();
-                using (var command = new NpgsqlCommand("DELETE FROM Tyontekija WHERE id = @id", conn))
+                using (var command = new NpgsqlCommand("DELETE FROM Luvat WHERE Tyontekija_id = @id", conn))
                 {
                     command.Parameters.AddWithValue("id", this.Id);
-
+                    command.ExecuteNonQuery();
+                    command.CommandText = "DELETE FROM Vuoro WHERE Tyontekija_id = @id";
+                    command.Parameters.AddWithValue("id", this.Id);
+                    command.ExecuteNonQuery();
+                    command.CommandText = "DELETE FROM Huomio WHERE Tyontekija_id = @id";
+                    command.Parameters.AddWithValue("id", this.Id);
+                    command.ExecuteNonQuery();
+                    command.CommandText = "DELETE FROM Tyontekija WHERE id = @id";
+                    command.Parameters.AddWithValue("id", this.Id);
                     command.ExecuteNonQuery();
                 }
             }
