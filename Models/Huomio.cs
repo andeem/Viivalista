@@ -11,7 +11,7 @@ namespace Viivalista.Models
     public class Huomio
     {
 
-        public int Id { get;}
+        public int Id { get; set; }
         [Required(ErrorMessage = "Nimi vaaditaan")]
         public String Nimi { get; set; }
         [Required(ErrorMessage = "Kuvaus vaaditaan")]
@@ -23,12 +23,13 @@ namespace Viivalista.Models
 
         public Huomio() { }
 
-        public Huomio(int id, string nimi, string kuvaus, DateTime pvm)
+        public Huomio(int id, string nimi, string kuvaus, DateTime pvm, int tyontekija)
         {
             Id = id;
             Nimi = nimi;
             Kuvaus = kuvaus;
             Aika = pvm;
+            TyontekijaId = tyontekija;
         }
 
         public static IEnumerable<Huomio> HaeTyontekijalla(Kayttaja kayttaja)
@@ -45,7 +46,7 @@ namespace Viivalista.Models
                     while (reader.Read())
                     {
 
-                        huomiot.Add(new Huomio((int)reader[0], (String)reader[1], (String)reader[2], (DateTime)reader[3]));
+                        huomiot.Add(new Huomio((int)reader[0], (String)reader[1], (String)reader[2], (DateTime)reader[3], (int)reader[4]));
                     }
                     return huomiot;
                 }
@@ -54,6 +55,40 @@ namespace Viivalista.Models
             }
 
         }
+        public static Huomio Hae(int id)
+        {
+            using (var conn = Database.connection())
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand("SELECT * FROM Huomio WHERE Id = @id", conn))
+                {
+                    command.Parameters.AddWithValue("id", id);
+
+                    NpgsqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    return new Huomio((int)reader[0], (String)reader[1], (String)reader[2], (DateTime)reader[3], (int)reader[4]);
+
+                }
+
+
+            }
+
+        }
+
+        public void delete()
+        {
+            using (var conn = Database.connection())
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand("DELETE FROM Huomio WHERE Id = @id", conn))
+                {
+                    command.Parameters.AddWithValue("id", this.Id);
+                    command.ExecuteNonQuery();
+
+                }
+            };
+        }
+
         public void save()
         {
             using (var conn = Database.connection())
@@ -65,6 +100,23 @@ namespace Viivalista.Models
                     command.Parameters.AddWithValue("kuvaus", this.Kuvaus);
                     command.Parameters.AddWithValue("aika", this.Aika);
                     command.Parameters.AddWithValue("ttID", this.TyontekijaId);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public void edit()
+        {
+            using (var conn = Database.connection())
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand("UPDATE huomio SET nimi = @nimi, kuvaus = @kuvaus, aika = @aika, tyontekija_id = @ttId WHERE Id = @id", conn))
+                {
+                    command.Parameters.AddWithValue("nimi", this.Nimi);
+                    command.Parameters.AddWithValue("kuvaus", this.Kuvaus);
+                    command.Parameters.AddWithValue("aika", this.Aika);
+                    command.Parameters.AddWithValue("ttID", this.TyontekijaId);
+                    command.Parameters.AddWithValue("id", this.Id);
 
                     command.ExecuteNonQuery();
                 }

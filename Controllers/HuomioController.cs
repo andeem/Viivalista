@@ -15,6 +15,7 @@ namespace Viivalista.Controllers
     public class HuomioController : BaseController
     {
         // GET: /<controller>/
+        [Route("Huomio")]
         public IActionResult Index()
         {
             return View(Huomio.HaeTyontekijalla(GetUserLoggedIn()));
@@ -24,11 +25,26 @@ namespace Viivalista.Controllers
 
             return View();
         }
+
+        //[Route("Huomio/{id}")]
+        public IActionResult Nayta(int id)
+        {
+
+
+            return View("Huomio", Huomio.Hae(id));
+        }
+        [Route("Huomio/Lisaa")]
         public IActionResult Lisaa()
         {
 
             return View();
         }
+        public IActionResult Muokkaa(int id)
+        {
+
+            return View(Huomio.Hae(id));
+        }
+
         public IActionResult Tallenna(Huomio h)
         {
             if (ModelState.IsValid)
@@ -38,7 +54,27 @@ namespace Viivalista.Controllers
             }
 
 
-            return View("Index", Huomio.HaeTyontekijalla(GetUserLoggedIn()));
+            return View("Huomio", Huomio.HaeTyontekijalla(GetUserLoggedIn()));
+        }
+        [HttpPost]
+        [Route("Huomio/{id}")]
+        public IActionResult TallennaVanha(Huomio h)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                h.edit();
+            }
+
+
+            return RedirectToAction("Nayta", h.Id);
+        }
+        
+        public IActionResult Poista(Huomio h)
+        {
+            h.delete();
+
+            return RedirectToAction("Index");
         }
     }
 }

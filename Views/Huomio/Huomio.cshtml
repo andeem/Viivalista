@@ -1,23 +1,27 @@
 ﻿@using Viivalista.Models;
-@Model Huomio;
+@model Huomio
 @{
-    ViewData["Title"] = "Hammaslääkäri";
+    ViewData["Title"] = Model.Nimi;
 }
 
 <h1>@Model.Nimi</h1>
 <table>
     <tr>
-        <th>Tapahtuma</th>
+        
         <th>Päivä</th>
         <th>Aika</th>
-        <th>Kuvaus</th>
+        
     </tr>
     <tr>
-        <td>@Model.Nimi</td>
-        <td>@Model.Aika.Date()</td>
-        <td>@Model.Aika.Time()</td>
-        <td>Model.Kuvaus</td>
+        
+        <td>@Model.Aika.ToString("dd.MM.yyyy")</td>
+        <td>@Model.Aika.TimeOfDay</td>
+        </tr>
+    <tr><th>Kuvaus</th></tr>
+    <tr>
+        <td>@Model.Kuvaus</td>
     </tr>
 </table>
-<button>Muokkaa</button>
-<button>Poista</button>
+<br />
+<a asp-area="" asp-controller="Huomio" asp-action="Muokkaa" asp-route-id=@Model.Id class="btn btn-default">Muokkaa</a>
+<a asp-area="" asp-controller="Huomio" asp-action="Poista"  asp-route-id=@Model.Id class="btn btn-danger" >Poista</a>
